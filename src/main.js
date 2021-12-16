@@ -1,20 +1,27 @@
 // console.log("START");
 
+// i7-10510U CPU => 4 cores => 8 threads
+// console.log("Number of logical processors available: ", navigator.hardwareConcurrency); // 8 for i7-10510U CPU
+
 const calcBtn = document.getElementById("calc-btn");
 const numInput = document.getElementById("num-input");
 const calcStatus = document.getElementById("calc_status");
-const dedicatedWebWorker = new Worker("./web.workers/dedicatedWebWorker.js", {type: "module"});
+// One worker instance => one thread => no more parallel computation within the thread / worker
+const dedicatedWebWorkerV1 = new Worker("./web.workers/dedicatedWebWorker.js", {
+    name: "FibonacciWorker1",
+    // type: "module"
+});
 
-dedicatedWebWorker.onmessage = function (event) {
+dedicatedWebWorkerV1.onmessage = function (event) {
     const [inputValue, n] = event.data;
     calcStatus.innerText = `#${inputValue}: ${n}`; // *** 2 ***
     console.log(`#${inputValue}: ${n}`);
     numInput.value = "";
 }
 
-dedicatedWebWorker.onerror = function (error) {
-    calcStatus.innerText = `Error: ${error.message}`;
-    console.log(`Error: ${error.message}`);
+dedicatedWebWorkerV1.onerror = function (error) {
+    calcStatus.innerText = error.message;
+    console.error(error.message);
     numInput.value = "";
 }
 
@@ -23,7 +30,8 @@ function runCalc() {
     if (!isNaN(inputValue)) {
         calcStatus.innerText = "Processing..."; // *** 1 ***
         console.log("Processing...");
-        dedicatedWebWorker.postMessage(inputValue);
+        dedicatedWebWorkerV1.postMessage(inputValue);
+        // dedicatedWebWorkerV2.postMessage(inputValue);
         return;
     }
     calcStatus.innerText = "NaN";

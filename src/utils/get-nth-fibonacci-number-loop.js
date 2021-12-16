@@ -1,4 +1,4 @@
-export const getNthFibonacciNumberLoop = (n) => {
+const getNthFibonacciNumberLoop = (n) => {
     let first = 0;
     let second = 1;
     let sumOfPrevTwo;
