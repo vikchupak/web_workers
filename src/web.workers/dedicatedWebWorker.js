@@ -6,11 +6,13 @@ importScripts("../utils/get-nth-fibonacci-number-recursion.js");
 importScripts("../utils/get-nth-fibonacci-number-loop.js");
 
 onmessage = function (event) {
+    console.time(name);
     console.log(`Worker ${name} is running`);
     // console.log("self: ", self);
     const inputValue = event.data;
     const n = getNthFibonacciNumberRecursion(event.data);
     postMessage([inputValue, n]);
+    console.timeEnd(name);
 
     // To "kill" the web worker from inside the worker
     // close();
