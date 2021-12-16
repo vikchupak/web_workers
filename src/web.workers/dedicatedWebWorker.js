@@ -6,7 +6,7 @@ importScripts("../utils/get-nth-fibonacci-number-recursion.js");
 importScripts("../utils/get-nth-fibonacci-number-loop.js");
 
 onmessage = function (event) {
-    console.log("Worker is running");
+    console.log(`Worker ${name} is running`);
     // console.log("self: ", self);
     const inputValue = event.data;
     const n = getNthFibonacciNumberRecursion(event.data);

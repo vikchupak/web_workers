@@ -45,6 +45,14 @@ button {
   margin-left: 10px;
 }
 
-#calc_status {
+#calc_status1 {
+  margin-top: 20px;
+}
+
+#calc_status2 {
+  margin-top: 20px;
+}
+
+.run_both_container {
   margin-top: 20px;
 }
