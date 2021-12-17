@@ -8,13 +8,16 @@ const connections = [];
 
 const crossWindowState = {
     counter: 0,
-}
+};
 
-console.log(self)
+// console.log(self);
 
 onconnect = function(event) {
     const port = event.ports[0];
     connections.push(port);
+
+    // to automatically sync new tabs
+    port.postMessage(crossWindowState);
 
     // port.addEventListener('message', function messageListener(event) {...});
     // port.start();
@@ -39,7 +42,7 @@ onconnect = function(event) {
                 connections.splice(connections.indexOf(port), 1);
                 break;
             default:
-                throw new Error("No such actionType!")
+                throw new Error("No such actionType!");
         }
 
         connections.forEach((connection) => {
