@@ -20,39 +20,17 @@ body {
   width: 100%;
 }
 
-.central_element {
+.central_container {
   margin: auto auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.gif_container {
-  display: flex;
-}
-
-.header {
-  margin-top: 20px;
-}
-
-.calc_block {
-  display: flex;
-  margin-top: 20px;
+#state_block {
+  margin: 40px;
 }
 
 button {
-  padding: 0px 5px;
-  margin-left: 10px;
-}
-
-#calc_status1 {
-  margin-top: 20px;
-}
-
-#calc_status2 {
-  margin-top: 20px;
-}
-
-.run_both_container {
-  margin-top: 20px;
+  padding: 2px 6px;
 }
