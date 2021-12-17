@@ -10,6 +10,12 @@ const crossWindowState = {
     counter: 0,
 };
 
+function broadcastCrossWindowState () {
+    connections.forEach((port) => {
+        port.postMessage(crossWindowState);
+    });
+}
+
 // console.log(self);
 
 onconnect = function(event) {
@@ -34,9 +40,11 @@ onconnect = function(event) {
         switch (actionType) {
             case 'INCREMENT':
                 crossWindowState.counter++;
+                broadcastCrossWindowState();
                 break;
             case 'DECREMENT':
                 crossWindowState.counter--;
+                broadcastCrossWindowState();
                 break;
             case 'REMOVE_PORT':
                 connections.splice(connections.indexOf(port), 1);
@@ -44,9 +52,5 @@ onconnect = function(event) {
             default:
                 throw new Error("No such actionType!");
         }
-
-        connections.forEach((connection) => {
-            connection.postMessage(crossWindowState);
-        })
     }
 }
