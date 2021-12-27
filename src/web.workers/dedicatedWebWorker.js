@@ -5,13 +5,24 @@
 importScripts("../utils/get-nth-fibonacci-number-recursion.js");
 importScripts("../utils/get-nth-fibonacci-number-loop.js");
 
-onmessage = function (event) {
-    console.log("Worker is running");
-    // console.log("self: ", self);
-    const inputValue = event.data;
-    const n = getNthFibonacciNumberRecursion(event.data);
-    postMessage([inputValue, n]);
+onmessage = async function (event) {
+  console.log("Worker is running");
+  // console.log("self: ", self); // The same for this
+  const inputValue = event.data;
+  const n = getNthFibonacciNumberRecursion(event.data);
+  postMessage([inputValue, n]);
 
-    // To "kill" the web worker from inside the worker
-    // close();
+  // ReferenceError: document is not defined at onmessage
+  // const a = document.querySelector(".page_container");
+
+  // fetch is accessible from inside workers
+  const response = await fetch(
+    "https://jsonplaceholder.typicode.com/posts?_limit=5"
+  );
+  const posts = await response.json();
+
+  console.log(posts);
+
+  // To "kill" the web worker from inside the worker
+  // close();
 };
